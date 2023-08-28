@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import New from './components/New';
 import List from './components/List';
@@ -10,7 +10,7 @@ const MyContext = createContext(null);
 function App() {
 
   return (
-    <Router>
+    <HashRouter basename="/">
       <Navbar />
       <div className='container'>
         <Routes>
@@ -22,7 +22,7 @@ function App() {
           {/* Your components here */}
         </MyContext.Provider>
       </div>
-    </Router>
+    </HashRouter>
   );
 }
 
