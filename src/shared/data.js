@@ -78,6 +78,63 @@ export const teams = [
   }
 ]
 
+export const leagues = [
+  {
+      "id": 1,
+      "name": "Major League Baseball",
+      "type": "BASEBALL⚾",
+  },
+  {
+      "id": 2,
+      "name": "National League",
+      "type": "BASEBALL⚾",
+  },
+  {
+      "id": 3,
+      "name": "American League",
+      "type": "BASEBALL⚾",
+  },
+  {
+      "id": 4,
+      "name": "National Basketball Association",
+      "type": "BASCKET🏀",
+  },
+  {
+      "id": 5,
+      "name": "East Coast Basketball League",
+      "type": "BASCKET🏀",
+  },
+  {
+      "id": 6,
+      "name": "Maximum Basketball League",
+      "type": "BASCKET🏀",
+  },
+  {
+      "id": 7,
+      "name": "Premier League",
+      "type": "SOCCER⚽",
+  },
+  {
+      "id": 8,
+      "name": "La Liga",
+      "type": "SOCCER⚽",
+  },
+  {
+      "id": 9,
+      "name": "Serie A",
+      "type": "SOCCER⚽",
+  },
+]
+
+export const generateLeague = (type) => {
+  const leaguesBySport = leagues.filter(league => league.type === type)
+  return leaguesBySport[Math.floor(Math.random() * leaguesBySport.length)]
+};
+
+export const generateWinner = (teams) => {
+  return teams[Math.floor(Math.random() * teams.length)]
+}
+
 export const generateGame = (gameType) => {
   const games = [];
 
@@ -106,7 +163,9 @@ export const generateGame = (gameType) => {
       "team_1": team1,
       "team_2": team2,
       "date": date.toISOString(),
-      "type": type
+      "type": type,
+      "league": generateLeague(type),
+      "winner": generateWinner([team1, team2, {id: 0, name: "Empate"}])
     });
     numGames++;
   }
