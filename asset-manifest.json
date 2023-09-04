@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/parlay-frontend/static/css/main.00cf884c.css",
-    "main.js": "/parlay-frontend/static/js/main.b2a48b3b.js",
+    "main.js": "/parlay-frontend/static/js/main.c921cdb2.js",
     "static/js/498.822c9d52.chunk.js": "/parlay-frontend/static/js/498.822c9d52.chunk.js",
     "static/js/703.f4505640.chunk.js": "/parlay-frontend/static/js/703.f4505640.chunk.js",
     "static/js/210.bd9172a1.chunk.js": "/parlay-frontend/static/js/210.bd9172a1.chunk.js",
     "static/js/787.7272556a.chunk.js": "/parlay-frontend/static/js/787.7272556a.chunk.js",
     "index.html": "/parlay-frontend/index.html",
     "main.00cf884c.css.map": "/parlay-frontend/static/css/main.00cf884c.css.map",
-    "main.b2a48b3b.js.map": "/parlay-frontend/static/js/main.b2a48b3b.js.map",
+    "main.c921cdb2.js.map": "/parlay-frontend/static/js/main.c921cdb2.js.map",
     "498.822c9d52.chunk.js.map": "/parlay-frontend/static/js/498.822c9d52.chunk.js.map",
     "703.f4505640.chunk.js.map": "/parlay-frontend/static/js/703.f4505640.chunk.js.map",
     "210.bd9172a1.chunk.js.map": "/parlay-frontend/static/js/210.bd9172a1.chunk.js.map",
@@ -16,6 +16,6 @@
   },
   "entrypoints": [
     "static/css/main.00cf884c.css",
-    "static/js/main.b2a48b3b.js"
+    "static/js/main.c921cdb2.js"
   ]
 }
