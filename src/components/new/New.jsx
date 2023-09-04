@@ -30,33 +30,59 @@ const New = () => {
         setLeague(null)
     }
 
-    const add = (game, winner) => {
-        if(selectedGames.length === 3){
-            alert('Limite superado, solo puede seleccionar 3')
+    const add = (game, scoreTeam1, scoreTeam2) => {
+
+        if(
+            (scoreTeam1 === 0 && scoreTeam2 === 0) 
+            || (scoreTeam1 === null && scoreTeam2 === null)
+            || (scoreTeam1 === 0 && scoreTeam2 === null)
+            || (scoreTeam1 === null && scoreTeam2 === 0)
+            ){
+            removebyGame(game)
             return
         }
         if(selectedGames.filter((item) => item.game.id === game.id).length > 0){
-            alert("Este partido ya esta seleccionado")
-            return
+            setSelectedGames(selectedGames.map(item => item.game.id === game.id ? {id:item.id,game,scoreTeam1, scoreTeam2 } : item))
+        }else if(selectedGames.length > 0){
+            if(selectedGames.length === 3){
+                alert('Limite superado, solo puede seleccionar 3')
+                return
+            }
+            let newArray = [...selectedGames, {id: selectedGames.length, game, scoreTeam1, scoreTeam2} ]
+            setSelectedGames(newArray)
+        }else if(selectedGames.length === 0){
+            let newArray = [{id: selectedGames.length, game, scoreTeam1, scoreTeam2} ]
+            setSelectedGames(newArray)
         }
-        let newArray = [...selectedGames, {id: selectedGames.length, game, winner} ]
-        setSelectedGames(newArray)
     }
 
     const removeGame = (item) => {
         setSelectedGames(selectedGames.filter(a => a.id !== item.id))
     }
 
+    const removebyGame = (game) => {
+        setSelectedGames(selectedGames.filter(a => a.game.id !== game.id))
+    }
+
     const gameAlreadyWinner = (game) => {
-        let winner = null;
+        let team = null;
         parlayList.forEach((parlay) => {
             parlay.list.forEach((parlayGame)=>{
                 if(game.id === parlayGame.game.id){
-                    winner = parlayGame.winner.name 
+                    team = parlayGame.team.name 
                 } 
             })
         })
-        return winner;
+        return team;
+    }
+
+    const enableButton = (game) => {
+        if(selectedGames.length >= 0 && selectedGames.length < 3){
+            return true
+        }else if(selectedGames.length === 3 ){
+            return selectedGames.filter((item) => item.game.id === game.id).length > 0
+        }
+        
     }
 
     const createHeaders = (keys) => {
@@ -72,6 +98,13 @@ const New = () => {
           });
         }
         return result;
+    }
+
+    const selectScoreType = (item) => {
+        if(item.scoreTeam1 && item.scoreTeam1 > 0) return item.game.team_1.name + "- Alta:" + item.scoreTeam1
+        if(item.scoreTeam1 && item.scoreTeam1 < 0) return item.game.team_1.name + "- Baja:" + item.scoreTeam1
+        if(item.scoreTeam2 && item.scoreTeam2 > 0) return item.game.team_2.name + "- Alta:" + item.scoreTeam2
+        if(item.scoreTeam2 && item.scoreTeam2 < 0) return item.game.team_2.name + "- Baja:" + item.scoreTeam2
     }
 
     const saveAll = (amount) => {    
@@ -94,14 +127,14 @@ const New = () => {
             "Codigo del Juego": String(row.game.id), 
             "Equipo 1": row.game.team_1.name , 
             "Equipo 2": row.game.team_2.name , 
-            "Ganador": row.winner.name,
+            "Puntaje": selectScoreType(row) ,
         }))
 
         const headers = createHeaders([
             "Codigo del Juego",
             "Equipo 1",
             "Equipo 2",
-            "Ganador",
+            "Puntaje",
         ]);  
         
         doc.table(20,60,data,headers ,{ autoSize: true });
@@ -136,12 +169,17 @@ const New = () => {
                     league={league}
                     games={games}
                     gameAlreadyWinner={gameAlreadyWinner}
+                    enableButton={enableButton}
                     add={add} 
+                    removebyGame={removebyGame}
                  />
                 </div>
                 <div className="col-md-4">
                     {selectedGames.length > 0 && 
-                        <SelectedGames selectedGames={selectedGames} removeGame={removeGame} />
+                        <SelectedGames 
+                            selectedGames={selectedGames} 
+                            removeGame={removeGame} 
+                        />
                     }
                     {selectedGames.length === 3 && 
                         <BetAmount saveAll={saveAll} />

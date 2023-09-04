@@ -131,8 +131,8 @@ export const generateLeague = (type) => {
   return leaguesBySport[Math.floor(Math.random() * leaguesBySport.length)]
 };
 
-export const generateWinner = (teams) => {
-  return teams[Math.floor(Math.random() * teams.length)]
+export const generateScore = () => {
+  return Math.floor(Math.random() * 20)
 }
 
 export const generateGame = (gameType) => {
@@ -165,7 +165,8 @@ export const generateGame = (gameType) => {
       "date": date.toISOString(),
       "type": type,
       "league": generateLeague(type),
-      "winner": generateWinner([team1, team2, {id: 0, name: "Empate"}])
+      "scoreTeam1": generateScore(),
+      "scoreTeam2": generateScore(),
     });
     numGames++;
   }

@@ -1,7 +1,8 @@
 import { transformDate } from "../../shared/date"
+import ScoreButtonGroup from "./ScoreButtonGroup"
 
 
-const GameList = ({league, games, gameAlreadyWinner, add}) => {
+const GameList = ({league, games, enableButton, add, removebyGame}) => {
 
     return (
         <div className="card" >
@@ -24,15 +25,10 @@ const GameList = ({league, games, gameAlreadyWinner, add}) => {
                         <span >🆚</span>
                         <span>{game.team_2.name}</span>
                     </div>
-                    
-                    {!gameAlreadyWinner(game) && (
-                    <div className="d-flex justify-content-between">
-                        <button className="btn btn-info" onClick={() => add(game, game.team_1)}>Ganador</button>
-                        <button className="btn btn-warning" onClick={() => add(game, {id: 0, name: "Empate"})}>Empate</button>
-                        <button className="btn btn-info" onClick={() => add(game, game.team_1)}>Ganador</button>
-                    </div>)}
-
-                    {gameAlreadyWinner(game) && <span> <b>Apostado a: {gameAlreadyWinner(game)} 🏅</b></span> }
+                  
+                    {enableButton(game) && 
+                        <ScoreButtonGroup game={game} add={add} removebyGame={removebyGame} />
+                    }
                 </li>
                 ))}
             </ul>

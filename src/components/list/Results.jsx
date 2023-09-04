@@ -19,24 +19,26 @@ const Results = ({games}) => {
                         </span>
                     </div>
                     <div className="d-flex justify-content-between mb-3">
-                        <span 
-                        style={{fontSize: 30}}
-                        className={ game.team_1.id === game.winner.id ? "bg-warning": "bg-light" }>
-                            {game.team_1.id === game.winner.id && <span>🏅</span> }
-                            {game.team_1.name}
-                        </span>
-                        <span 
-                        style={{fontSize: 30}}
-                        className={ game.winner.id === 0 ? "bg-warning": "bg-light" }>
-                            {game.winner.id === 0 && <span>🏅</span> }
-                            Empate
-                        </span>
-                        <span 
-                        style={{fontSize: 30}}
-                        className={ game.team_2.id === game.winner.id ? "bg-warning": "bg-light" }>
-                            {game.team_2.id === game.winner.id && <span>🏅</span> }
-                            {game.team_2.name}
-                        </span>
+                        <div className={ game.scoreTeam1 > game.scoreTeam2 ? "col p-2 bg-warning": "col p-2 bg-light" }>
+                            <div style={{fontSize: 20}}>
+                                {game.scoreTeam1 > game.scoreTeam2 ? <div>🏅</div> : <div>🤨</div> }
+                                {game.team_1.name}
+                            </div>
+                            <div style={{fontSize: 25}}>{game.scoreTeam1}</div>
+                        </div>
+                        <div className={ game.scoreTeam1 === game.scoreTeam2 ? "col p-2 bg-warning": "col p-2 bg-light" }>
+                            <span style={{fontSize: 20}}>
+                                {game.scoreTeam1 === game.scoreTeam2 && <span>🏅</span> }
+                                Empate
+                            </span>
+                        </div>
+                        <div className={ game.scoreTeam1 < game.scoreTeam2 ? "col p-2 bg-warning": "col p-2 bg-light" }>
+                            <span style={{fontSize: 20}}>
+                                {game.scoreTeam2 > game.scoreTeam1 ? <div>🏅</div> : <div>🤨</div> }
+                                {game.team_2.name}
+                            </span>
+                            <div style={{fontSize: 25}}>{game.scoreTeam2}</div>
+                        </div>
                     </div>
                 </li>
                 ))}
