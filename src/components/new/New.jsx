@@ -6,6 +6,7 @@ import BetAmount from "./BetAmount"
 import SelectedGames from "./SelectedGames"
 import GameList from "./GameList"
 import jsPDF from "jspdf";
+import { getCurrentDate } from "../../shared/date";
 
 const New = () => {
     const navigate = useNavigate()
@@ -117,6 +118,9 @@ const New = () => {
         localStorage.setItem('parlayList',JSON.stringify(newArray));
 
         const doc = new jsPDF({putOnlyUsedFonts: true});
+        const pageWidth = doc.internal.pageSize.getWidth();
+        doc.setFontSize(12);
+        doc.text(getCurrentDate(), pageWidth - 20, 20, { align: 'right' });
         doc.setFontSize(30);
         doc.text("Mi apuesta", 20, 20);
     
